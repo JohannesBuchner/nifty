@@ -115,6 +115,7 @@
 ## standard libraries
 from __future__ import division
 import os
+import warnings
 #import sys
 from sys import stdout as so
 import numpy as np
@@ -126,8 +127,16 @@ from multiprocessing import Value as mv
 from multiprocessing import Array as ma
 ## third party libraries
 import gfft as gf
-import healpy as hp
-import libsharp_wrapper_gl as gl
+try:
+    import healpy as hp
+except ImportError:
+    warnings.warn('HEALPIX not installed. Install healpy to use NIFTYs HEALPix discretization.')
+	
+try:
+    import libsharp_wrapper_gl as gl
+except ImportError:
+    warnings.warn('GL not installed. Install libsharp_wrapper_gl to use NIFTYs Gauss-Legendre pixelization.')
+
 ## internal libraries
 import smoothing as gs
 import powerspectrum as gp
